@@ -17,15 +17,18 @@ from .views import(
     ShareArticleOnTwitterAPIView,
     ShareArticleViaMailAPIView,
     RateArticle,
-    SearchArticlesAPIView
+    SearchArticlesAPIView,
+    GetOneArticle,
+    TagsAPIView
 )
 
 urlpatterns = [
-    path('articles/search',SearchArticlesAPIView.as_view() ),
+    path('articles/search', SearchArticlesAPIView.as_view()),
     path('articles', RetrieveArticlesAPIView.as_view()),
     path('articles/<str:slug>/like/',
          LikeArticleView.as_view(), name='article-like'),
     path('article/bookmarks/', BookmarkView.as_view()),
+    path('articles/<str:slug>', GetOneArticle.as_view()),
     path('articles/<str:slug>/', CreateArticleView.as_view()),
     path('articles/<slug>/<count>', ReadingView.as_view(), name='reading'),
     path('articles/<str:slug>/bookmark/', BookmarkView.as_view()),
@@ -33,6 +36,7 @@ urlpatterns = [
     path('articles/', CreateArticleView.as_view(), name='article-create'),
     path('<slug>/tags/', ArticleTagsAPIView.as_view(), name='article-tags'),
     path('<slug>/tags/<tag>/', ArticleDeleteAPIView.as_view(), name='delete-tag'),
+    path('tags', TagsAPIView.as_view(), name='all-tag'),
     path('articles/<slug>/favorite/', FavouritesView.as_view()),
     path('articles/<str:slug>/report/',
          ReporteArticleAPIView.as_view(), name='report-aticle'),
